@@ -1,0 +1,41 @@
+from __future__ import annotations
+
+import copy
+from datetime import date
+
+from email import Email
+from status import Status
+
+
+class EmailService: #Сервис имитации отправки электронных писем.
+
+# Публичные методы
+
+    @staticmethod
+    def add_send_date() -> str:
+    # Возвращает текущую дату в формате YYYY-MM-DD.
+        return date.today().isoformat()
+
+    def send_email(self, email: Email) -> list[Email]:
+    # Имитирует отправку письма.
+    # Returns: cписок новых писем (одно на получателя) со статусом SENT или FAILED.
+
+        sent_emails: list[Email] = []
+
+        for recipient in email.recipients:
+            new_email: Email = copy.deepcopy(email)
+
+            # Один получатель на письмо
+            new_email.recipients = [copy.deepcopy(recipient)]
+
+            # Текущая дата отправки
+            new_email.date = self.add_send_date()
+
+            # Статус
+            new_email.status = (
+                Status.SENT if email.status == Status.READY else Status.FAILED
+            )
+
+            sent_emails.append(new_email)
+
+        return sent_emails
