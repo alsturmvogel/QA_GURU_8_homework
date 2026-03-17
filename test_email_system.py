@@ -1,7 +1,7 @@
 import pytest
 
 from email_address import EmailAddress
-from email import Email
+from email_model import Email
 from service import EmailService
 from status import Status
 
