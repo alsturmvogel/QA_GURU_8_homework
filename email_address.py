@@ -34,13 +34,13 @@ class EmailAddress:
         return any(address.endswith(domain) for domain in self.ALLOWED_DOMAINS)
 
         # Магические методы
-        def __repr__(self) -> str:
-            return f"EmailAddress(address='{self._address}')"
+    def __repr__(self) -> str:
+        return f"EmailAddress(address='{self._address}')"
 
-        def __str__(self) -> str:
-            return self._address
+    def __str__(self) -> str:
+        return self._address
 
-        def __eq__(self, other: object) -> bool:
-            if isinstance(other, EmailAddress):
-                return self._address == other._address
-            return NotImplemented
+    def __eq__(self, other: object) -> bool:
+        if isinstance(other, EmailAddress):
+            return self._address == other._address
+        return NotImplemented
