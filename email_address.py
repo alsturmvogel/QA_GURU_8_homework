@@ -7,9 +7,7 @@ class EmailAddress:
         normalized = self.normalize_address(address)
         if not self.__check_correct_email(normalized):
             raise ValueError(
-                f"Невалидный email-адрес: '{address}'. "
-                f"Адрес должен содержать '@' и заканчиваться на "
-                f"{', '.join(self.ALLOWED_DOMAINS)}."
+                f"""Невалидный email-адрес: '{address}'. Адрес должен содержать '@' и заканчиваться на {', '.join(self.ALLOWED_DOMAINS)}."""
             )
         self._address = normalized
 
@@ -35,7 +33,7 @@ class EmailAddress:
             return False
         return any(address.endswith(domain) for domain in self.ALLOWED_DOMAINS)
 
-    # Магические методы
+        # Магические методы
         def __repr__(self) -> str:
             return f"EmailAddress(address='{self._address}')"
 

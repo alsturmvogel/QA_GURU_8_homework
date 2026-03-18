@@ -1,7 +1,7 @@
 from __future__ import annotations
 
 from dataclasses import dataclass, field
-from typing import Optional
+from typing import Optional, Union, List
 
 from email_address import EmailAddress
 from status import Status
@@ -17,7 +17,7 @@ class Email:
     subject: str
     body: str
     sender: EmailAddress
-    recipients: list[EmailAddress]
+    recipients: Union[List[EmailAddress], EmailAddress]
     status: Status = field(default=Status.DRAFT)
     date: Optional[str] = field(default=None)
     short_body: Optional[str] = field(default=None)
@@ -79,21 +79,17 @@ class Email:
     def __str__(self) -> str:
         recipients_str = self.get_recipients_str()
         body_text = self.short_body if self.short_body else self.body
-        return (
-            f'Status: {self.status}\n'
-            f'Кому: {recipients_str}\n'
-            f'От: {self.sender.masked}\n'
-            f'Тема: {self.subject}, дата {self.date}\n'
-            f'{body_text}'
-        )
+        return f"""Status: {self.status}
+Кому: {recipients_str}
+От: {self.sender.masked}
+Тема: {self.subject}, дата {self.date}
+{body_text}"""
 
     def __repr__(self) -> str:
         recipients_str = self.get_recipients_str()
         body_text = self.short_body if self.short_body else self.body
-        return (
-            f'Status: {self.status}\n'
-            f'Кому: {recipients_str}\n'
-            f'От: {self.sender.masked}\n'
-            f'Тема: {self.subject}, дата {self.date}\n'
-            f'{body_text}'
-        )
+        return f"""Status: {self.status}
+Кому: {recipients_str}
+От: {self.sender.masked}
+Тема: {self.subject}, дата {self.date}
+{body_text}"""

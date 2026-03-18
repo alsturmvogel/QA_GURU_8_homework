@@ -178,13 +178,10 @@ def test_send_email_single_recipient_creates_new_object():
     assert len(results) == 1
     sent = results[0]
 
-
     assert sent.status == Status.SENT
-
 
     assert sent is not email
     assert sent.recipients[0].address == "b@b.com"
-
 
     assert email.date is None
     assert email.recipients is not results[0].recipients
@@ -231,6 +228,7 @@ def test_email_address_valid_equivalence(valid):
     addr = EmailAddress(valid)
     assert "@" in addr.address
 
+
 @pytest.mark.parametrize("valid", [
     "test@gmail.com",
     "User@MAIL.RU",
@@ -241,6 +239,7 @@ def test_email_address_valid_equivalence(valid):
 ])
 def test_email_address_valid_variants(valid):
     assert EmailAddress(valid).address == valid.lower().strip()
+
 
 @pytest.mark.parametrize("invalid", [
     "noatsymbol.com",
@@ -372,6 +371,7 @@ def test_add_short_body_empty_body():
     email = Email("s", "", EmailAddress("a@a.com"), EmailAddress("b@b.com"))
     email.add_short_body(5)
     assert email.short_body is None
+
 
 @pytest.mark.parametrize("subject, body, expected", [
     ("Hello", "World", Status.READY),
